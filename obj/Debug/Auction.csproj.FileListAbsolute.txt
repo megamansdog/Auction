@@ -1,0 +1,6 @@
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\bin\Auction.dll.config
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\bin\Auction.dll
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\bin\Auction.pdb
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\obj\Debug\Auction.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\obj\Debug\Auction.dll
+\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\obj\Debug\Auction.pdb
