@@ -10,6 +10,7 @@
 </head>
 <body>
     <div id="wrapper">
+        <h1><%: Page.Title %></h1>
         <asp:ContentPlaceHolder ID="content" runat="server">
         </asp:ContentPlaceHolder>
     </div>
