@@ -9,7 +9,7 @@
     <% } else { %>
     <form action="login.aspx" method="post">
         <label for="username">Username</label><input type="text" runat="server" id="username" />
-        <% //<asp:Button runat="server" text="Submit" OnClick="SubmitForm" /> %>
+        <% //<asp:Button runat="server" text="Submit" OnClick="SubmitForm" /> test %> 
         <input type="submit" value="Log In" />
     </form>
         <a href="register.aspx">Register</a>
