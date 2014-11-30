@@ -13,7 +13,7 @@ namespace Auction
         protected void Page_Load(object sender, EventArgs e)
         {
             // Prevent logged in users from accessing the registration page
-            if (Session["username"] != null) { Response.Redirect("./index.aspx"); return; }
+            if (Session["id"] != null) { Response.Redirect("./index.aspx"); return; }
 
             if (HttpContext.Current.Request.HttpMethod == "POST")
             {
@@ -22,7 +22,6 @@ namespace Auction
                 {
                     db.CreateUser(Request.Form["username"], Request.Form["password"], Request.Form["email"]);
                     Response.Write("Username " + Request.Form["username"] + " was added to the database.");
-                    //Response.();
                 }
                 catch (Exception ex)
                 {
