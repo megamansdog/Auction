@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Auction
 {
@@ -15,7 +16,8 @@ namespace Auction
         public AuctionDB()
         {
             this.con = new System.Data.SqlClient.SqlConnection();
-            this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\App_Data\Database1.mdf;Integrated Security=True";
+            //this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\App_Data\Database1.mdf;Integrated Security=True";
+            this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\USERS\JCAYLOR.INIS\SOURCE\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=True"; 
             this.con.Open();
         }
 
@@ -25,9 +27,9 @@ namespace Auction
             String query = "INSERT INTO dbo.users (username,password,email) VALUES(@username,@password, @email)";
 
             SqlCommand command = new SqlCommand(query, this.con);
-            command.Parameters.Add("@username",username);
-            command.Parameters.Add("@password", FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"));
-            command.Parameters.Add("@email",email);
+            command.Parameters.AddWithValue("@username",username);
+            command.Parameters.AddWithValue("@password", FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"));
+            command.Parameters.AddWithValue("@email",email);
             try
             {
                 command.ExecuteNonQuery();
@@ -39,9 +41,80 @@ namespace Auction
             }
         }
 
-        public bool Authenticate(string username, string password)
+        public int Authenticate(string username, string password)
         {
-            return true;
+            String query = "SELECT * FROM dbo.users WHERE username='" + username + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText =query;
+
+            reader = cmd.ExecuteReader();
+            // Data is accessible through the DataReader object here.
+            try
+            {
+                while (reader.Read())
+                {
+                    if ((username == reader["username"].ToString()) && (FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5") == reader["password"].ToString()))
+                    {
+                        // User Exists
+                        return (int) reader["id"];
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB Authenticate Exception: " + e.Message );
+            }
+            // User did not exist
+            return -1;
         }
+
+        public void CreateCC(int userid, string owner, string number, DateTime expiration)
+        {
+            String query = "INSERT INTO dbo.credit_card (userid,owner,number,expiration) VALUES(@userid,@owner,@number, @expiration)";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.Parameters.AddWithValue("@owner", owner);
+            command.Parameters.AddWithValue("@number", number);
+            command.Parameters.AddWithValue("@expiration", expiration);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Credit Card: " + e.Message + " " + e.GetType());
+            }
+        }
+        
+        public List<CCInfo> GetCCList(int usersid)
+        {
+            List<CCInfo> CCList = new List<CCInfo>();
+            String query = "SELECT * FROM dbo.credit_card WHERE userid='" + usersid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+            // Data is accessible through the DataReader object here.
+            try
+            {
+                
+                while (reader.Read())
+                {
+                    CCList.Add(new CCInfo((int)reader["userid"],(string)reader["owner"],(string)reader["number"],(DateTime)reader["expiration"]));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB Authenticate Exception: " + e.Message);
+            }
+            // User did not exist
+            return CCList;
+        }
+
     }
 }
