@@ -11,9 +11,12 @@ namespace Auction
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["username"] == null) {
+            // This page is only for logged in users
+            if (Session["id"] == null) {
                 Response.Redirect("index.aspx");
             }
+
+
         }
     }
 }

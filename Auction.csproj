@@ -67,9 +67,11 @@
     <Content Include="test.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="register.aspx" />
+    <Content Include="profile.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuctionDB.cs" />
+    <Compile Include="CCInfo.cs" />
     <Compile Include="login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>
     </Compile>
@@ -113,6 +115,13 @@
     </Compile>
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="profile.aspx.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="profile.aspx.designer.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
