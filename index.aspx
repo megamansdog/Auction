@@ -3,12 +3,13 @@
     <% //Session["Name"] = "test"; %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <% if (Session["username"] != null) { %>
+    <% if (Session["id"] != null) { %>
     Welcome, <%: Session["username"] %> (<a href="logout.aspx">Logout</a>)
     <p id="test">Click <a href="test.aspx">TEST</a></p>
     <% } else { %>
-    <form action="login.aspx" method="post">
-        <label for="username">Username</label><input type="text" runat="server" id="username" />
+    <form action="login.ashx" method="post">
+        <label for="username">Username</label><input type="text" id="username" name="username"/>
+        <label for="password">Password</label><input type="password" id="password" name="password"/>
         <% //<asp:Button runat="server" text="Submit" OnClick="SubmitForm" /> %>
         <input type="submit" value="Log In" />
     </form>
