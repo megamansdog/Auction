@@ -18,11 +18,16 @@ namespace Auction
             {
                 Response.Redirect("index.aspx");
             }
+
+            // Acquire list of current credit cards owned by this user
             CCList = db.GetCCList((int)Session["id"]);
 
-            if (Request.HttpMethod == "post")
+
+            // If there is a post request that contains Form["action"] == "createCC"
+            if ((Request.HttpMethod == "POST") && (string)Request.Form["action"] == "createCC")
             {
                 db.CreateCC((int)Session["id"], (string)Request.Form["owner"], (string)Request.Form["number"], Convert.ToDateTime(Request.Form["expiration"]));
+                Response.Write("Credit Card Added!");
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Auction
         {
             this.con = new System.Data.SqlClient.SqlConnection();
             //this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\App_Data\Database1.mdf;Integrated Security=True";
-            this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\USERS\JCAYLOR.INIS\SOURCE\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=True"; 
+            this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\USERS\JCAYLOR.INIS\SOURCE\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;"; 
             this.con.Open();
         }
 
@@ -28,7 +28,7 @@ namespace Auction
 
             SqlCommand command = new SqlCommand(query, this.con);
             command.Parameters.AddWithValue("@username",username);
-            command.Parameters.AddWithValue("@password", FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"));
+            command.Parameters.AddWithValue("@password", Public.GetMD5Hash(password));
             command.Parameters.AddWithValue("@email",email);
             try
             {
@@ -55,7 +55,7 @@ namespace Auction
             {
                 while (reader.Read())
                 {
-                    if ((username == reader["username"].ToString()) && (FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5") == reader["password"].ToString()))
+                    if ((username == reader["username"].ToString()) && (Public.GetMD5Hash(password) == reader["password"].ToString()))
                     {
                         // User Exists
                         return (int) reader["id"];
@@ -116,5 +116,25 @@ namespace Auction
             return CCList;
         }
 
+
+        public void Contact(int userid, string owner, string number, DateTime expiration)
+        {
+            String query = "INSERT INTO dbo.credit_card (userid,owner,number,expiration) VALUES(@userid,@owner,@number, @expiration)";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.Parameters.AddWithValue("@owner", owner);
+            command.Parameters.AddWithValue("@number", number);
+            command.Parameters.AddWithValue("@expiration", expiration);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Credit Card: " + e.Message + " " + e.GetType());
+            }
+        }
     }
+
 }
