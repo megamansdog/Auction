@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AuctionDB.cs" />
     <Compile Include="CCInfo.cs" />
+    <Compile Include="ContactInfo.cs" />
     <Compile Include="login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>
     </Compile>
@@ -96,6 +97,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Public.cs" />
+    <Compile Include="blank.Master.cs">
+      <DependentUpon>blank.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="blank.Master.designer.cs">
+      <DependentUpon>blank.Master</DependentUpon>
+    </Compile>
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -132,6 +140,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="blank.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

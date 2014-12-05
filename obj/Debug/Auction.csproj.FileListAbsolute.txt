@@ -10,3 +10,9 @@ C:\Users\jcaylor.inIS\Source\Repos\Auction\bin\Auction.pdb
 C:\Users\jcaylor.inIS\Source\Repos\Auction\obj\Debug\Auction.csprojResolveAssemblyReference.cache
 C:\Users\jcaylor.inIS\Source\Repos\Auction\obj\Debug\Auction.dll
 C:\Users\jcaylor.inIS\Source\Repos\Auction\obj\Debug\Auction.pdb
+D:\repos\Auction\bin\Auction.dll.config
+D:\repos\Auction\bin\Auction.dll
+D:\repos\Auction\bin\Auction.pdb
+D:\repos\Auction\obj\Debug\Auction.csprojResolveAssemblyReference.cache
+D:\repos\Auction\obj\Debug\Auction.dll
+D:\repos\Auction\obj\Debug\Auction.pdb

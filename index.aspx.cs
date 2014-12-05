@@ -9,10 +9,15 @@ namespace Auction
 {
     public partial class index : System.Web.UI.Page
     {
-
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (Session["id"] == null)
+            {
+                this.MasterPageFile = "~/blank.master";
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
         /*
         protected void SubmitForm(object sender, EventArgs e)
