@@ -68,11 +68,15 @@
     <Content Include="logout.aspx" />
     <Content Include="register.aspx" />
     <Content Include="profile.aspx" />
+    <Content Include="item_add.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuctionDB.cs" />
     <Compile Include="CCInfo.cs" />
     <Compile Include="ContactInfo.cs" />
+    <Compile Include="showpicture.ashx.cs">
+      <DependentUpon>showpicture.ashx</DependentUpon>
+    </Compile>
     <Compile Include="login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>
     </Compile>
@@ -132,10 +136,20 @@
     <Compile Include="profile.aspx.designer.cs">
       <DependentUpon>profile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="item_add.aspx.cs">
+      <DependentUpon>item_add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="item_add.aspx.designer.cs">
+      <DependentUpon>item_add.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.Master" />
     <Content Include="login.ashx" />
+    <Content Include="showpicture.ashx">
+      <BrowseToURL>pic</BrowseToURL>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

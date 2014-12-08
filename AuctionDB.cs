@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace Auction
 {
@@ -208,6 +210,25 @@ namespace Auction
             // User did not exist
             return AddressList;
         }
+
+        public void CreateItem(int userid, string name, string condition, int initial_price, string description, int quantity, string picture, DateTime end_time )
+        {
+            /*
+            String query = "INSERT INTO dbo.contact_info (userid,phone_number) VALUES(@userid,@phone_number)";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.Parameters.AddWithValue("@phone_number", phone_number);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Contact Info: " + e.Message + " " + e.GetType());
+            }*/
+        }
+
     }
 
 }

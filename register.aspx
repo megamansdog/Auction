@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="Auction.WebForm3" %>
+﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/blank.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="Auction.WebForm3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
