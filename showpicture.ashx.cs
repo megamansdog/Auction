@@ -12,29 +12,21 @@ namespace Auction
     /// </summary>
     public class Handler1 : IHttpHandler
     {
-
+        public AuctionDB db = new AuctionDB();
         public void ProcessRequest(HttpContext context)
         {
-            if ((context.Request.HttpMethod == "POST") && (string)context.Request.Form["action"] == "item_add")
+            int imageid;
+            Int32.TryParse(context.Request.QueryString["imageid"], out imageid);
+            if ((context.Request.HttpMethod == "GET") && (imageid > 0))
             {
-                //db.addItem((string)Request.Form["item_name"],(string)Request.Form["item_condition"],(string)Request.Form["item_initial_price"],(string)Request.Form["item_description"],Request.Form["item_quantity"] );
-                //context.Response.Write(context.Request.Form.ToString());
-                for (int i = 0; i < 1; i++)
-                {
-                    HttpPostedFile file = context.Request.Files[i];
-                    if (file.ContentLength > 0)
-                    {
-                        //var str = new StreamReader(file.InputStream).ReadToEnd();
-                        //var bin = new BinaryReader(file.InputStream).ReadBytes(int.MaxValue);
-                        //var bin = ReadAllBytes(new BinaryReader(file.InputStream));
-                        byte[] fileData = null;
-                        var binaryReader = new BinaryReader(file.InputStream);
-                        fileData = binaryReader.ReadBytes(file.ContentLength);
-                        context.Response.BinaryWrite(fileData);
-                        context.Response.ContentType = "image/jpeg";
-                        break;
-                    }
-                }
+                Picture currentPic = db.GetItemPicture(imageid);
+                if (currentPic == null) { context.Response.StatusCode = 404; context.Response.End(); }
+                context.Response.BinaryWrite(currentPic.image_data);
+                context.Response.ContentType = "image/jpeg";
+            }
+            else
+            {
+                context.Response.StatusCode = 404;
             }
         }
 

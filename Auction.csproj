@@ -73,6 +73,8 @@
   <ItemGroup>
     <Compile Include="AuctionDB.cs" />
     <Compile Include="CCInfo.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Picture.cs" />
     <Compile Include="ContactInfo.cs" />
     <Compile Include="showpicture.ashx.cs">
       <DependentUpon>showpicture.ashx</DependentUpon>

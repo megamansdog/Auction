@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <form class="form-horizontal" method="post" action="showpicture.ashx" enctype="multipart/form-data">
+    <form class="form-horizontal" method="post" action="item_add.aspx" enctype="multipart/form-data">
     <fieldset>
 
     <!-- Form Name -->
@@ -66,13 +66,13 @@
 
     <!-- Text input-->
     <div class="form-group">
-        <label class="col-md-4 control-label" for="textinput">Duration</label>  
+        <label class="col-md-4 control-label" for="item_duration">Duration</label>  
         <div class="col-md-1">
-            <input id="item_duration" name="item_duration" type="number" placeholder="placeholder" class="form-control input-md" min="1" max="60" />
+            <input id="item_duration" name="item_duration" type="number" placeholder="Duration" class="form-control input-md" min="1" max="60" />
             <span class="help-block">Length of time you wish for your auction to live</span>  
         </div>
         <div class="col-md-1">
-        <select id="selectbasic" name="selectbasic" class="form-control">
+        <select id="item_duration_type" name="item_duration_type" class="form-control">
             <option value="minutes">Minutes</option>
             <option value="hours">Hours</option>
             <option value="days">Days</option>

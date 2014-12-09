@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.IO;
+using System.Data;
 
 namespace Auction
 {
@@ -18,7 +19,6 @@ namespace Auction
         public AuctionDB()
         {
             this.con = new System.Data.SqlClient.SqlConnection();
-            //this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=\\psf\Home\Documents\Visual Studio 2013\Projects\Auction\App_Data\Database1.mdf;Integrated Security=True";
             this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
             this.con.Open();
         }
@@ -211,22 +211,179 @@ namespace Auction
             return AddressList;
         }
 
-        public void CreateItem(int userid, string name, string condition, int initial_price, string description, int quantity, string picture, DateTime end_time )
+        public int CreateItem(int userid, string name, string condition, int initial_price, string description, int quantity, DateTime end_time )
         {
-            /*
-            String query = "INSERT INTO dbo.contact_info (userid,phone_number) VALUES(@userid,@phone_number)";
+            String query = "INSERT INTO dbo.items (userid,name,condition,initial_price,description,quantity,start_time,end_time) VALUES(@userid,@name,@condition,@initial_price,@description,@quantity,@start_time,@end_time); SELECT @Id = SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, this.con);
             command.Parameters.AddWithValue("@userid", userid);
-            command.Parameters.AddWithValue("@phone_number", phone_number);
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@condition", condition);
+            command.Parameters.AddWithValue("@initial_price", initial_price);
+            command.Parameters.AddWithValue("@description", description);
+            command.Parameters.AddWithValue("@quantity", quantity);
+            command.Parameters.AddWithValue("@start_time", (DateTime) DateTime.Now);
+            command.Parameters.AddWithValue("@end_time", end_time);
+
+            //Obtain the ID of the item that was created
+            command.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
             try
             {
                 command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                throw new Exception("Error Creating Contact Info: " + e.Message + " " + e.GetType());
-            }*/
+                throw new Exception("Error Creating sContact Info: " + e.Message + " " + e.GetType());
+            }
+            int itemid = Convert.ToInt32(command.Parameters["@Id"].Value);
+            return itemid;
+        }
+        public List<Item> GetItemList(int userid)
+        {
+            List<Item> ItemList = new List<Item>();
+            String query = "SELECT * FROM dbo.items WHERE userid='" + userid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+            // Data is accessible through the DataReader object here.
+            try
+            {
+
+                while (reader.Read())
+                {
+                    ItemList.Add(new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetItemList Exception: " + e.Message);
+            }
+            // User did not exist
+            return ItemList;
+        }
+        public List<Item> GetAllItemList()
+        {
+            List<Item> ItemList = new List<Item>();
+            String query = "SELECT * FROM dbo.items";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+            // Data is accessible through the DataReader object here.
+            try
+            {
+
+                while (reader.Read())
+                {
+                    ItemList.Add(new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"], (DateTime)reader["start_time"], (DateTime)reader["end_time"]));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetItemList Exception: " + e.Message);
+            }
+            // User did not exist
+            return ItemList;
+        }
+        public void CreateItemPicture(int itemid, string image_name, byte[] image_data)
+        {
+            String query = "INSERT INTO dbo.item_pictures (itemid,image_name,image_data) VALUES(@itemid,@image_name,@image_data)";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@itemid", itemid);
+            command.Parameters.AddWithValue("@image_name", image_name);
+            command.Parameters.AddWithValue("@image_data", image_data);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Item Picture: " + e.Message + " " + e.GetType());
+            }
+
+        }
+
+        public List<Picture> GetItemPictureList(int itemid)
+        {
+            List<Picture> ItemPictureList = new List<Picture>();
+            String query = "SELECT * FROM dbo.item_pictures WHERE itemid='" + itemid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+            // Data is accessible through the DataReader object here.
+            try
+            {
+                while (reader.Read())
+                {
+                    ItemPictureList.Add(new Picture((int)reader["Id"], (string)reader["image_name"], (byte[])reader["image_data"], (int)reader["itemid"]));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetItemPictureList Exception: " + e.Message);
+            }
+
+            return ItemPictureList;
+        }
+
+        public Picture GetItemPicture(int imageid)
+        {
+            String query = "SELECT * FROM dbo.item_pictures WHERE Id='" + imageid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+
+            try
+            {
+                while(reader.Read())
+                {
+                    byte[] image_data = (byte[])reader["image_data"];
+                    return new Picture((int)reader["Id"],(string)reader["image_name"], image_data, (int)reader["itemid"]);
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetItemPictureList Exception: " + e.Message);
+            }
+            return null;
+        }
+
+        public int GetFirstItemPicture(int itemid)
+        {
+            String query = "SELECT TOP(1) id FROM dbo.item_pictures WHERE itemid='" + itemid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    return (int)reader["Id"];
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetFirstItemPicture Exception: " + e.Message);
+            }
+            return 0;
         }
 
     }

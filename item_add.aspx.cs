@@ -11,26 +11,41 @@ namespace Auction
 {
     public partial class WebForm5 : System.Web.UI.Page
     {
+        public AuctionDB db = new AuctionDB();
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Request.HttpMethod == "POST") && (string)Request.Form["action"] == "item_add")
             {
                 //db.addItem((string)Request.Form["item_name"],(string)Request.Form["item_condition"],(string)Request.Form["item_initial_price"],(string)Request.Form["item_description"],Request.Form["item_quantity"] );
-                Response.Write(Request.Form.ToString());
+                DateTime end_time = DateTime.Now;
+                switch (Request.Form["item_duration_type"])
+                {
+                    case "minutes":
+                        end_time = end_time.AddMinutes(Int32.Parse(Request.Form["item_duration"]));
+                        break;
+                    case "hours":
+                        end_time = end_time.AddHours(Int32.Parse(Request.Form["item_duration"]));
+                        break;
+                    case "days":
+                        end_time = end_time.AddDays(Int32.Parse(Request.Form["item_duration"]));
+                        break;
+                    default:
+                        Response.End();
+                        break;
+                }
+
+                int itemid = db.CreateItem((int)Session["id"], (string)Request.Form["item_name"], (string)Request.Form["item_condition"], (int)Int32.Parse(Request.Form["item_initial_price"]), (string)Request.Form["item_description"], (int)Int32.Parse(Request.Form["item_quantity"]), end_time);
+                
+                // Create the pictures...
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     HttpPostedFile file = Request.Files[i];
                     if (file.ContentLength > 0)
                     {
-                        //var str = new StreamReader(file.InputStream).ReadToEnd();
-                        //var bin = new BinaryReader(file.InputStream).ReadBytes(int.MaxValue);
-                        //var bin = ReadAllBytes(new BinaryReader(file.InputStream));
                         byte[] fileData = null;
                         var binaryReader = new BinaryReader(file.InputStream);
                         fileData = binaryReader.ReadBytes(file.ContentLength);
-                        Response.BinaryWrite(fileData);
-                        Response.ContentType = "image/jpeg";
-                        break;
+                        db.CreateItemPicture(itemid, file.FileName, fileData);
                     }
                 }
             }
@@ -39,19 +54,6 @@ namespace Auction
                 //Response.Redirect("index.aspx");
                 
             }
-        }
-        protected static byte[] ReadAllBytes(BinaryReader reader)
-        {
-            const int bufferSize = 4096;
-            using (var ms = new MemoryStream())
-            {
-                byte[] buffer = new byte[bufferSize];
-                int count;
-                while ((count = reader.Read(buffer, 0, buffer.Length)) != 0)
-                    ms.Write(buffer, 0, count);
-                return ms.ToArray();
-            }
-
         }
     }
 }
