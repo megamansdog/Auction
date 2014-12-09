@@ -22,7 +22,7 @@
         %>
           <div class="col-sm-6 col-md-2">
             <div class="thumbnail">
-              <img src="http://localhost:57608/showpicture.ashx?imageid=<%: db.GetFirstItemPicture(Item.id) %>" alt="...">
+              <a href="item_view.aspx?itemid=<%: Item.id %>"><img src="http://localhost:57608/showpicture.ashx?imageid=<%: db.GetFirstItemPicture(Item.id) %>" alt="..."></a>
               <div class="caption">
                 <h3><%: Item.name %></h3>
                 <p><%: Item.description %></p>
@@ -35,5 +35,9 @@
             }
         %>
      </div>
+
+    <div class="row">
+
+    </div>
     <%} %>
 </asp:Content>

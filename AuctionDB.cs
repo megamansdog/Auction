@@ -238,6 +238,32 @@ namespace Auction
             int itemid = Convert.ToInt32(command.Parameters["@Id"].Value);
             return itemid;
         }
+
+        public Item GetItem(int itemid)
+        {
+            String query = "SELECT TOP(1) * FROM dbo.items WHERE Id='" + itemid + "'";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    return new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]);
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetItem Exception: " + e.Message);
+            }
+            return null;
+        }
+
         public List<Item> GetItemList(int userid)
         {
             List<Item> ItemList = new List<Item>();
