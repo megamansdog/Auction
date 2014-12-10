@@ -15,22 +15,22 @@
     </form>
     <a href="register.aspx">Register</a>
     <% } else { %>
-    <div class="row">
+    <div class="row equal">
         <% 
             foreach (Auction.Item Item in ItemList)
             {
         %>
-          <div class="col-sm-6 col-md-2">
-            <div class="thumbnail">
-              <a href="item_view.aspx?itemid=<%: Item.id %>"><img src="http://localhost:57608/showpicture.ashx?imageid=<%: db.GetFirstItemPicture(Item.id) %>" alt="..."></a>
-              <div class="caption">
-                <h3><%: Item.name %></h3>
-                <p><%: Item.description %></p>
-                  <p>Ends: <%: Item.end_time %></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-              </div>
+            <div class="col-sm-6 col-md-2">
+                <div class="thumbnail">
+                    <a href="item_view.aspx?itemid=<%: Item.id %>"><img src="showpicture.ashx?imageid=<%: db.GetFirstItemPicture(Item.id) %>" alt="..."></a>
+                    <div class="caption"><h3><a href="item_view.aspx?itemid=<%: Item.id %>"><%: Item.name %></a></h3></div>
+                </div>
+                <div class="">
+                        <p><%: Item.description %></p>
+                            <p>Ends: <%: Item.end_time %></p>
+                        <p><a href="item_view.aspx?itemid=<%: Item.id %>" class="btn btn-primary" role="button">View</a></p>
+                </div>
             </div>
-           </div>
         <%
             }
         %>

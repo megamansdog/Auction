@@ -43,6 +43,7 @@ namespace Auction
             }
         }
 
+
         public int Authenticate(string username, string password)
         {
             String query = "SELECT * FROM dbo.users WHERE username='" + username + "'";
@@ -255,7 +256,6 @@ namespace Auction
                 {
                     return new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]);
                 }
-
             }
             catch (Exception e)
             {
@@ -410,6 +410,25 @@ namespace Auction
                 throw new Exception("Auction DB GetFirstItemPicture Exception: " + e.Message);
             }
             return 0;
+        }
+
+        public void CreateBid(int userid, int itemid, double bid_amount, DateTime bid_time)
+        {
+            String query = "INSERT INTO dbo.bids (userid,itemid,bid_amount,bid_time) VALUES(@userid,@itemid,@bid_amount, @bid_time)";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.Parameters.AddWithValue("@itemid", itemid);
+            command.Parameters.AddWithValue("@bid_amount", bid_amount);
+            command.Parameters.AddWithValue("@bid_time", bid_time);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Bid: " + e.Message + " " + e.GetType());
+            }
         }
 
     }

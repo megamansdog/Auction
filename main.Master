@@ -22,6 +22,8 @@
 <script src="lib/lightbox/js/lightbox.min.js"></script>
 <link rel="stylesheet" href="lib/lightbox/css/lightbox.css" />
 
+<!-- main.css -->
+<link rel="stylesheet" href="main.css" />
 <asp:ContentPlaceHolder ID="head" runat="server">
 
 </asp:ContentPlaceHolder>
@@ -79,7 +81,5 @@
         <asp:ContentPlaceHolder ID="content" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-
-
 </body>
 </html>

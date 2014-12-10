@@ -8,7 +8,7 @@
     <!-- Form Name -->
     <legend>New Item</legend>
 
-    <!-- Text input-->
+    <!-- Name input-->
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_name">Item Name</label>  
       <div class="col-md-4">
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <!-- Select Basic -->
+    <!-- Condition Select -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_condition">Condition</label>
       <div class="col-md-4">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Initial Price input-->
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_initial_price">Initial Price</label>  
       <div class="col-md-4">
@@ -38,25 +38,25 @@
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Description input-->
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_description">Item Description</label>  
       <div class="col-md-4">
-      <input id="item_description" name="item_description" type="text" placeholder="Item Description" class="form-control input-md" />
+      <textarea id="item_description" name="item_description" type="text" placeholder="Item Description" class="form-control input-md"></textarea>
       <span class="help-block">A brief description of your item</span>  
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Quantity input-->
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_quantity">Quantity</label>  
       <div class="col-md-4">
       <input id="item_quantity" name="item_quantity" type="text" placeholder="Quantity" class="form-control input-md" />
-      <span class="help-block">help</span>  
+      <span class="help-block">The amount of individual items. Highest bidder wins all.</span>  
       </div>
     </div>
 
-    <!-- File Button --> 
+    <!-- Image Files Button --> 
     <div class="form-group">
       <label class="col-md-4 control-label" for="item_pictures">Pictures</label>
       <div class="col-md-4">
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Duration input-->
     <div class="form-group">
         <label class="col-md-4 control-label" for="item_duration">Duration</label>  
         <div class="col-md-1">
@@ -80,9 +80,9 @@
         </div>
     </div>
 
-    <!-- Button -->
+    <!-- Submit Button -->
     <div class="form-group">
-      <div class="col-md-4">
+      <div class="col-md-4 col-md-offset-4">
         <button type="submit" id="item_submit" name="item_submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
