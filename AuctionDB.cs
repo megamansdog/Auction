@@ -425,6 +425,33 @@ namespace Auction
             {
                 command.ExecuteNonQuery();
             }
+            catch (SqlException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error Creating Bid: " + e.Message + " " + e.GetType());
+            }
+        }
+
+        public void UpdateBid(int userid, int itemid, double bid_amount, DateTime bid_time)
+        {
+            String query = "UPDATE dbo.bids SET bid_amount=@bid_amount,bid_time=@bid_time WHERE userid=@userid AND itemid=@itemid";
+
+            SqlCommand command = new SqlCommand(query, this.con);
+            command.Parameters.AddWithValue("@userid", userid);
+            command.Parameters.AddWithValue("@itemid", itemid);
+            command.Parameters.AddWithValue("@bid_amount", bid_amount);
+            command.Parameters.AddWithValue("@bid_time", bid_time);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                throw e;
+            }
             catch (Exception e)
             {
                 throw new Exception("Error Creating Bid: " + e.Message + " " + e.GetType());
