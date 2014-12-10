@@ -26,7 +26,7 @@
                     <div class="caption"><h3><a href="item_view.aspx?itemid=<%: Item.id %>"><%: Item.name %></a></h3></div>
                 </div>
                 <div class="">
-                        <p><%: Item.description %></p>
+                        <p class="item_description"><%: Item.description %></p>
                             <p>Ends: <%: Item.end_time %></p>
                         <p><a href="item_view.aspx?itemid=<%: Item.id %>" class="btn btn-primary" role="button">View</a></p>
                 </div>

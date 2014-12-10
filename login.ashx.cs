@@ -21,7 +21,7 @@ namespace Auction
             {
                 // User has already authenticated
                 if (context.Session["id"] != null) { 
-                    context.Response.Redirect("index.aspx");             
+                    context.Response.Redirect("index.aspx");
                     return;
                 }
 

@@ -13,3 +13,9 @@
     /* inline-block space fix */
     margin-right:-4px;
 }
+.item_description {
+    max-height: 200px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

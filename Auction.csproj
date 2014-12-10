@@ -82,15 +82,15 @@
     <Content Include="item_view.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuctionDB.cs" />
-    <Compile Include="Bid.cs" />
+    <Compile Include="Classes\AuctionDB.cs" />
+    <Compile Include="Classes\Bid.cs" />
     <Compile Include="bid_add.ashx.cs">
       <DependentUpon>bid_add.ashx</DependentUpon>
     </Compile>
-    <Compile Include="CCInfo.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Classes\CCInfo.cs" />
+    <Compile Include="Classes\Item.cs" />
     <Compile Include="Picture.cs" />
-    <Compile Include="ContactInfo.cs" />
+    <Compile Include="Classes\ContactInfo.cs" />
     <Compile Include="showpicture.ashx.cs">
       <DependentUpon>showpicture.ashx</DependentUpon>
     </Compile>
@@ -190,7 +190,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
