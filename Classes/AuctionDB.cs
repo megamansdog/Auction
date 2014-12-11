@@ -19,7 +19,8 @@ namespace Auction
         public AuctionDB()
         {
             this.con = new System.Data.SqlClient.SqlConnection();
-            this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
+            //this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
+            this.con.ConnectionString = @"Server=JASON-PC\SQLEXPRESS;Database=D:\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=true;MultipleActiveResultSets=True;";
             this.con.Open();
         }
 
@@ -254,7 +255,7 @@ namespace Auction
             {
                 while (reader.Read())
                 {
-                    return new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]);
+                    return new Item((int)reader["Id"], (int)reader["userid"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]);
                 }
             }
             catch (Exception e)
@@ -280,7 +281,7 @@ namespace Auction
 
                 while (reader.Read())
                 {
-                    ItemList.Add(new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]));
+                    ItemList.Add(new Item((int)reader["Id"], (int)reader["userid"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"],(DateTime)reader["start_time"],(DateTime)reader["end_time"]));
                 }
             }
             catch (Exception e)
@@ -306,7 +307,7 @@ namespace Auction
 
                 while (reader.Read())
                 {
-                    ItemList.Add(new Item((int)reader["Id"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"], (DateTime)reader["start_time"], (DateTime)reader["end_time"]));
+                    ItemList.Add(new Item((int)reader["Id"], (int)reader["userid"], (string)reader["name"], (string)reader["condition"], (int)reader["initial_price"], (string)reader["description"], (int)reader["quantity"], (DateTime)reader["start_time"], (DateTime)reader["end_time"]));
                 }
             }
             catch (Exception e)
@@ -456,6 +457,30 @@ namespace Auction
             {
                 throw new Exception("Error Creating Bid: " + e.Message + " " + e.GetType());
             }
+        }
+
+        public Bid GetHighestBid(int itemid)
+        {
+            String query = "SELECT TOP(1) * FROM dbo.bids WHERE itemid='" + itemid + "' ORDER BY bid_amount DESC";
+            SqlCommand cmd = new SqlCommand(query, this.con);
+            SqlDataReader reader;
+
+            cmd.CommandText = query;
+
+            reader = cmd.ExecuteReader();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    return new Bid((int)reader["Id"], (int)reader["userid"], (int)reader["itemid"], (double) Convert.ToDouble(reader["bid_amount"]), (DateTime)reader["bid_time"]);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Auction DB GetHighestBid Exception: " + e.ToString());
+            }
+            return null;
         }
 
     }

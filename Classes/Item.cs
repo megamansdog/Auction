@@ -8,6 +8,7 @@ namespace Auction
     public class Item
     {
         public int id { get; set; }
+        public int userid { get; set; }
         public string name { get; set; }
         public string condition { get; set; }
         public int initial_price { get; set; }
@@ -16,9 +17,10 @@ namespace Auction
         public DateTime start_time { get; set; }
         public DateTime end_time { get; set; }
 
-        public Item(int id, string name, string condition, int initial_price, string description, int quantity, DateTime start_time, DateTime end_time)
+        public Item(int id, int userid, string name, string condition, int initial_price, string description, int quantity, DateTime start_time, DateTime end_time)
         {
             this.id = id;
+            this.userid = userid;
             this.name = name;
             this.condition = condition;
             this.initial_price = initial_price;

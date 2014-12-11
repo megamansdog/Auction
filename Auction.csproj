@@ -62,6 +62,7 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="countdown.min.js" />
     <Content Include="lib\lightbox\css\lightbox.css" />
     <Content Include="lib\lightbox\css\screen.css" />
     <Content Include="lib\lightbox\img\close.png" />
@@ -80,6 +81,7 @@
     <Content Include="profile.aspx" />
     <Content Include="item_add.aspx" />
     <Content Include="item_view.aspx" />
+    <Content Include="search.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AuctionDB.cs" />
@@ -166,6 +168,13 @@
     </Compile>
     <Compile Include="item_view.aspx.designer.cs">
       <DependentUpon>item_view.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="search.aspx.cs">
+      <DependentUpon>search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="search.aspx.designer.cs">
+      <DependentUpon>search.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

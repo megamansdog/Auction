@@ -47,6 +47,7 @@ namespace Auction
                         db.CreateItemPicture(itemid, file.FileName, fileData);
                     }
                 }
+                db.CreateBid((int)Session["id"], itemid, (int)Int32.Parse(Request.Form["item_initial_price"]), (DateTime)DateTime.Now);
             }
             else
             {

@@ -12,6 +12,7 @@ namespace Auction
         public AuctionDB db = new AuctionDB();
         public Item item;
         public List<Picture> ItemPictureList;
+        public Bid highestBid;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +24,8 @@ namespace Auction
                 if ( item == null ) { Response.StatusCode = 404; Response.End(); }
                 ItemPictureList = db.GetItemPictureList(itemid);
                 Page.Title = item.name;
+                highestBid = db.GetHighestBid(itemid);
+                if (highestBid == null) { highestBid = new Bid(0, 0, 0, 0, DateTime.Now); }
             } else {
                 Response.StatusCode = 404;
                 Response.End();
