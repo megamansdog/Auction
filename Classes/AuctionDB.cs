@@ -19,8 +19,8 @@ namespace Auction
         public AuctionDB()
         {
             this.con = new System.Data.SqlClient.SqlConnection();
-            //this.con.ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
-            this.con.ConnectionString = @"Server=JASON-PC\SQLEXPRESS;Database=D:\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=true;MultipleActiveResultSets=True;";
+            this.con.ConnectionString = @"Data Source=(localdb)\ProjectsV12;AttachDbFilename=|DataDirectory|\DATABASE1.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
+            //this.con.ConnectionString = @"Server=JASON-PC\SQLEXPRESS;Database=D:\REPOS\AUCTION\APP_DATA\DATABASE1.MDF;Integrated Security=true;MultipleActiveResultSets=True;";
             this.con.Open();
         }
 
